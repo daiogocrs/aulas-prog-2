@@ -3,63 +3,89 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <fstream>
 
 using namespace std;
 
-vector<pair<char, char>> gerarTabelaROT13() {
+vector<pair<char, char>> criarTabela() {
+    int i;
+    char original, codificado;
+
     vector<pair<char, char>> tabela;
 
-    for (char c = 'A'; c <= 'Z'; c++) {
-        char substituto = ((c - 'A' + 13) % 26) + 'A';
-        tabela.push_back(make_pair(c, substituto));
-    }
-
-    for (char c = 'a'; c <= 'z'; c++) {
-        char substituto = ((c - 'a' + 13) % 26) + 'a';
-        tabela.push_back(make_pair(c, substituto));
+    for (i = 32; i <= 126; i++) { 
+        original = (char)i;
+        codificado = (char)((i - 32 + 5) % 95 + 32);
+        tabela.push_back(make_pair(original, codificado));
     }
 
     return tabela;
 }
 
-char substituiComTabela(char c, const vector<pair<char, char>>& tabela) {
-    for (const auto& par : tabela) {
-        if (par.first == c) {
-            return par.second;
+void salvarTabelaEmArquivo(const vector<pair<char, char>>& tabela) {
+    ofstream arquivo("tabela_codificacao.txt");
+
+    if (arquivo.is_open()) {
+        arquivo << "Original -> Codificado\n";
+        for (const auto& par : tabela) {
+            arquivo << par.first << " -> " << par.second << "\n";
         }
+        arquivo.close();
+        cout << "\nTabela de codificação salva em 'tabela_codificacao.txt'\n";
+    } else {
+        cout << "Erro ao abrir o arquivo para salvar a tabela!\n";
     }
-    return c;
 }
 
-string aplicaROT13ComTabela(const string& frase, const vector<pair<char, char>>& tabela) {
+string criptografar(const string& texto, const vector<pair<char, char>>& tabela) {
     string resultado = "";
-    for (char c : frase) {
-        resultado += substituiComTabela(c, tabela);
+    bool substituido = false;
+
+    for (char c : texto) {
+        for (auto& par : tabela) {
+            if (c == par.first) {
+                resultado += par.second;
+                substituido = true;
+                break;
+            }
+        }
+        if (!substituido) resultado += c; 
+    }
+    return resultado;
+}
+
+string descriptografar(const string& texto, const vector<pair<char, char>>& tabela) {
+    string resultado = "";
+    bool substituido = false;
+    char c;
+
+    for (char c : texto) {
+        for (auto& par : tabela) {
+            if (c == par.second) {
+                resultado += par.first;
+                substituido = true;
+                break;
+            }
+        }
+        if (!substituido) resultado += c; 
     }
     return resultado;
 }
 
 int main() {
-    vector<pair<char, char>> tabelaROT13 = gerarTabelaROT13();
+    vector<pair<char, char>> tabela = criarTabela();
 
-    cout << "Tabela de Substituicao - Regra ROT13" << endl;
-    cout << setw(10) << "Original" << setw(15) << "Substituto" << endl;
-    cout << "--------------------------" << endl;
+    salvarTabelaEmArquivo(tabela);
 
-    for (const auto& par : tabelaROT13) {
-        if (isupper(par.first))
-            cout << setw(10) << par.first << setw(15) << par.second << endl;
-    }
+    string texto;
+    cout << "\nDigite um texto para criptografar: ";
+    getline(cin, texto);
 
-    cout << "\nDigite uma frase para criptografar: ";
-    string frase;
-    getline(cin, frase);
+    string codificado = criptografar(texto, tabela);
+    cout << "\nTexto Criptografado: " << codificado << endl;
 
-    string criptografada = aplicaROT13ComTabela(frase, tabelaROT13);
-    cout << "\nFrase Criptografada: " << criptografada << endl;
-
-    string descriptografada = aplicaROT13ComTabela(criptografada, tabelaROT13);
-    cout << "Frase Descriptografada: " << descriptografada << endl;
+    string decodificado = descriptografar(codificado, tabela);
+    cout << "Texto Decodificado: " << decodificado << endl;
 
     return 0;
 }
