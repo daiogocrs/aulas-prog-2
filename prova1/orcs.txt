@@ -1,0 +1,15 @@
+Grulgor Quebra-Ossos; 30; 3; 2
+Thrakgar Punho de Ferro; 15; 8; 2
+Morgash Olho-Sangrento; 5; 5; 1
+Ghorzul Dente Negro; 27; 4; 2
+Brugath Espreitador Sombrio; 55; 6; 3
+Druzhak Machado Duplo; 44; 12; 1
+Kragzul Sangue-Velho; 22; 1; 1
+Zhorbag Crânio Partido; 66; 6; 2
+Urgarok Olho Flamejante; 24; 5; 2
+Drogar Punhal das Sombras; 77; 1; 1
+Krolgar Trovão Selvagem; 42; 12; 2
+Borgoth Mão Cruel; 88; 1; 2
+Thrugor Lança Mortal; 34; 2; 3
+Zugrak Arrancador de Cabeças; 56; 9; 2
+Grashnak Rasga-Peles; 49; 4; 1

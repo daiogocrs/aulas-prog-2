@@ -1,0 +1,20 @@
+Bjorn Corta-Marés; 33; 7; 1
+Erik Machado Duplo; 12; 9; 2
+Ragnar Punho de Ferro; 44; 4; 1
+Leif Sangue de Lobo; 12; 2; 2
+Ulf Coração Selvagem; 89; 12; 1
+Ivar Quebra-Escudos; 90; 1; 1
+Sven Barba de Gelo; 15; 5; 1
+Hakon Caçador de Tempestades; 63; 4; 1
+Sigurd Olho do Trovão; 42; 2; 1
+Einar Mão Rápida; 12; 3; 2
+Torsten Rompe Ossos; 42; 2; 2
+Arvid Matador de Gigantes; 46; 5; 2
+Gunnar Espada Veloz; 23; 4; 2
+Sten Sangue de Dragão; 45; 12; 1
+Harald Lança de Fogo; 98; 4; 3
+Rolf Martelo de Pedra; 23; 8; 1
+Njord Filho do Mar; 63; 3; 3
+Olaf Escudo de Carvalho; 42; 4; 1
+Ketil Rugido do Norte; 45; 12; 3
+Valgard Senhor dos Mares; 42; 4; 2
