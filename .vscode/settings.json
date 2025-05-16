@@ -3,6 +3,8 @@
         "*.embeddedhtml": "html",
         "limits": "cpp",
         "iostream": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "ostream": "cpp",
+        "string": "cpp"
     }
 }
