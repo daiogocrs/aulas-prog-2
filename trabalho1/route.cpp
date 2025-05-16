@@ -18,12 +18,10 @@ string Route::GetOrigin()
 {
     return *m_origin;
 }
-
 string Route::GetDestination()
 {
     return *m_destination;
 }
-
 float Route::GetDistanceKm()
 {
     return *m_distanceKm;
