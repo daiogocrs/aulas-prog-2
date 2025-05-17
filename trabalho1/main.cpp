@@ -1,10 +1,11 @@
 #include "header.hpp"
+#include <limits>
 
-Vehicle* BuscarVeiculoPorPlaca(const vector<Vehicle*>& vehicles, const string& plate);
+Vehicle *BuscarVeiculoPorPlaca(const vector<Vehicle *> &vehicles, const string &plate);
 
 int main()
 {
-    vector<Vehicle*> vehicles;
+    vector<Vehicle *> vehicles;
     int option;
 
     while (true)
@@ -22,6 +23,14 @@ int main()
 
         cin >> option;
         cin.ignore();
+
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada invalida. Tente novamente.\n";
+            continue;
+        }
 
         if (option == 1)
         {
@@ -49,7 +58,7 @@ int main()
 
             for (auto it = vehicles.begin(); it != vehicles.end(); ++it)
             {
-                if ((*it)->SearchTripBySubstring("").find(plate) != string::npos)
+                if ((*it)->GetAllTrips().find(plate) != string::npos)
                 {
                     delete *it;
                     vehicles.erase(it);
@@ -67,8 +76,8 @@ int main()
             string plate;
             cout << "Placa: ";
             getline(cin, plate);
-            
-            Vehicle* v = BuscarVeiculoPorPlaca(vehicles, plate);
+
+            Vehicle *v = BuscarVeiculoPorPlaca(vehicles, plate);
 
             if (v)
             {
@@ -94,19 +103,26 @@ int main()
             string plate;
             cout << "Placa: ";
             getline(cin, plate);
-           
-            Vehicle* v = BuscarVeiculoPorPlaca(vehicles, plate);
+
+            Vehicle *v = BuscarVeiculoPorPlaca(vehicles, plate);
 
             if (v)
             {
+                string trips = v->GetAllTrips();
+                cout << "\nRotas encontradas para o veiculo:\n";
+                cout << trips;
+
+                cout << "\nDigite o indice da rota que deseja remover.\n";
+
                 size_t index;
                 cout << "Indice da rota: ";
                 cin >> index;
                 cin.ignore();
+
                 if (v->RemoveTrip(index))
                     cout << "Rota removida com sucesso!\n";
                 else
-                    cout << "Indice invalido.\n";
+                    cout << "Indice invalido. Nenhuma rota removida.\n";
             }
             else
             {
@@ -118,16 +134,17 @@ int main()
             string plate;
             cout << "Placa: ";
             getline(cin, plate);
-            bool found = false;
 
-            Vehicle* v = BuscarVeiculoPorPlaca(vehicles, plate);
+            Vehicle *v = BuscarVeiculoPorPlaca(vehicles, plate);
 
-            if (!found)
+            if (v)
+                cout << v->GetAllTrips();
+            else
                 cout << "Veiculo nao encontrado.\n";
         }
         else if (option == 6)
         {
-            for (auto& v : vehicles)
+            for (auto &v : vehicles)
                 cout << v->GetAllTrips();
         }
         else if (option == 7)
@@ -137,7 +154,7 @@ int main()
             getline(cin, word);
             bool found = false;
 
-            for (auto& v : vehicles)
+            for (auto &v : vehicles)
             {
                 string result = v->SearchTripBySubstring(word);
                 if (!result.empty())
@@ -160,17 +177,16 @@ int main()
         }
     }
 
-    for (auto& v : vehicles)
+    for (auto &v : vehicles)
         delete v;
 
     return 0;
 }
 
-Vehicle* BuscarVeiculoPorPlaca(const vector<Vehicle*>& vehicles, const string& plate)
+Vehicle *BuscarVeiculoPorPlaca(const vector<Vehicle *> &vehicles, const string &plate)
 {
     for (auto v : vehicles)
     {
-        // Aqui usamos GetAllTrips e vemos se a placa aparece no início da string
         if (v->GetAllTrips().find(plate) != string::npos)
         {
             return v;
